@@ -22,10 +22,10 @@
     </head>
     <body class="{{ $class ?? '' }}">
         @auth()
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-            </form>
-            @include('layouts.navbars.sidebar')
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+        @include('layouts.navbars.sidebar')
         @endauth
 
         <div class="main-content">
@@ -35,9 +35,11 @@
             @yield('content')
         </div>
 
-        @guest()
-            @include('layouts.footers.guest')
+        @guest
+        @include('layouts.footers.guest')
         @endguest
+
+        @yield('modals')
 
         <script src="{{ asset('argon') }}/vendor/jquery/dist/jquery.min.js"></script>
         <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

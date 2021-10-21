@@ -1,0 +1,9 @@
+---
+
+deployment:
+
+ tasks:
+
+ - export DEPLOYPATH=/home/uneatapp/public_html/renkakita
+
+ - /usr/bin/rsync -Paz * $DEPLOYPATH --delete

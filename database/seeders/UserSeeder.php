@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User\Role;
 use App\Models\User\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;

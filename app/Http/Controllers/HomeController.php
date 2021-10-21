@@ -2,18 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User\Role;
+
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Show the application dashboard.
      *
@@ -21,6 +13,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        if (!auth()->check()) {
+            return view('welcome');
+        } else if (in_array(auth()->user()->role->id, Role::ADMINS)) {
+            return view('dashboard');
+        } else if (in_array(auth()->user()->role->id, Role::DISTRIBUTORS)) {
+            return view('dashboard');
+        } else {
+            abort(404);
+        }
     }
 }

@@ -19,8 +19,9 @@ class RoleSeeder extends Seeder
             ['name' => 'admin_general', 'display_name' => 'General Admin'],
             ['name' => 'admin_renka', 'display_name' => 'Renka Project\'s Admin'],
             ['name' => 'admin_kita', 'display_name' => 'Pakai Kita\'s Admin'],
-            ['name' => 'distributor_renka', 'display_name' => 'Renka Project\s Distributor'],
+            ['name' => 'distributor_renka', 'display_name' => 'Renka Project\'s Distributor'],
             ['name' => 'distributor_kita', 'display_name' => 'Pakai Kita\'s Distributor'],
+            ['name' => 'user', 'display_name' => 'User'],
         ]);
     }
 }

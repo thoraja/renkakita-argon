@@ -7,7 +7,7 @@ use App\Models\User\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class StoreDistributorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,23 +27,22 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => [
-                'min:3'
-            ],
             'email' => [
-                'required', 'email', Rule::unique((new User)->getTable())->ignore($this->route()->user->id ?? null)
-            ],
-            'password' => [
-                'confirmed', 'min:8'
+                'required', 'email', 'unique:App\Models\User\User'
             ],
             'role_id' => [
-                Rule::in(Role::pluck('id'))
-            ]
+                'required', Rule::in(Role::DISTRIBUTORS)
+            ],
+            'area' => [
+                'required'
+            ],
         ];
     }
 
     public function withValidator($validator)
     {
-        $validator->validateWithBag('user');
+        $validator->validateWithBag('distributor');
     }
 }
+
+

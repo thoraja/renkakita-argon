@@ -13,16 +13,14 @@
             <li class="nav-item dropdown">
                 <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="media align-items-center">
-                        <span class="avatar avatar-sm rounded-circle">
-                        <img alt="Image placeholder" src="{{ asset('argon') }}/img/theme/team-4-800x800.jpg">
-                        </span>
+                        <i class="fas fa-user mr-1"></i>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
                     <div class=" dropdown-header noti-title">
                         <h6 class="text-overflow m-0">{{ __('Welcome!') }}</h6>
                     </div>
-                    <a href="#" class="dropdown-item">
+                    <a href="{{ route('profile.show') }}" class="dropdown-item">
                         <i class="ni ni-single-02"></i>
                         <span>{{ __('My profile') }}</span>
                     </a>
@@ -53,58 +51,60 @@
                     </div>
                 </div>
             </div>
-            {{-- <!-- Form -->
-            <form class="mt-4 mb-3 d-md-none">
-                <div class="input-group input-group-rounded input-group-merge">
-                    <input type="search" class="form-control form-control-rounded form-control-prepended" placeholder="{{ __('Search') }}" aria-label="Search">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <span class="fa fa-search"></span>
-                        </div>
-                    </div>
-                </div>
-            </form> --}}
-            <!-- Navigation -->
+            @can('perform-administrative')
+
             <h6 class="navbar-heading text-muted">Administrative</h6>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <x-sidebar-link route="dashboard">
+                    <x-sidebar.link route-name="dashboard" href="{{ route('dashboard') }}">
                         <i class="fa fa-tachometer-alt"></i>
                         {{ __('Dashboard') }}
-                    </x-sidebar-link>
+                    </x-sidebar.link>
                 </li>
+                @can('viewAny', App\Models\User\User::class)
                 <li class="nav-item">
-                    <x-sidebar-link>
+                    <x-sidebar.link route-name="user.*" href="{{ route('user.index') }}">
                         <i class="fa fa-users"></i>
                         {{ __('Users') }}
-                    </x-sidebar-link>
+                    </x-sidebar.link>
                 </li>
+                @endcan
+                @can('viewAny', App\Models\User\Distributor::class)
                 <li class="nav-item">
-                    <x-sidebar-collapse id="tools" route="dashboard">
-                        <x-slot name="trigger">
-                            <i class="fab fa-laravel"></i>
-                            {{ __('Tools') }}
-                        </x-slot>
-                        <x-slot name="content">
-                            <ul class="nav nav-sm flex-column">
-                                <li class="nav-item">
-                                    <x-sidebar-link>
-                                        {{ __('User Profile') }}
-                                    </x-sidebar-link>
-                                </li>
-                                <li class="nav-item">
-                                    <x-sidebar-link>
-                                        {{ __('User Management') }}
-                                    </x-sidebar-link>
-                                </li>
-                            </ul>
-                        </x-slot>
-                    </x-sidebar-collapse>
+                    <x-sidebar.link route-name="distributor.*" href="{{ route('distributor.index') }}">
+                        <i class="fas fa-project-diagram"></i>
+                        {{ __('Distributors') }}
+                    </x-sidebar.link>
                 </li>
+                @endcan
             </ul>
             <!-- Divider -->
             <hr class="my-3">
+            @endcan
             <!-- Heading -->
+            <h6 class="navbar-heading text-muted">Products</h6>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <x-sidebar.link route-name="product.*">
+                        <i class="fas fa-tshirt"></i>
+                        {{ __('Products') }}
+                    </x-sidebar.link>
+                </li>
+                <li class="nav-item">
+                    <x-sidebar.collapse id="user-collapse" route-name="user.*">
+                        <x-slot name="trigger">
+                            <i class="fa fa-users"></i>
+                            {{ __('Orders') }}
+                        </x-slot>
+                        <x-slot name="content">
+                            <x-sidebar.link route-name="user.*" href="{{ route('user.index') }}">
+                                <i class="fa fa-tachometer-alt"></i>
+                                {{ __('Dashboard') }}
+                            </x-sidebar.link>
+                        </x-slot>
+                    </x-sidebar.collapse>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>

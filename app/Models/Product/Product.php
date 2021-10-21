@@ -13,26 +13,26 @@ class Product extends Model
 
     public function company()
     {
-        return $this->belongsTo(Company::class, 'company_id');
+        return $this->belongsTo(Company::class);
     }
 
     public function category()
     {
-        return $this->belongsTo(Category::class, 'category_id');
+        return $this->belongsTo(Category::class);
     }
 
     public function material()
     {
-        return $this->belongsTo(Material::class, 'material_id');
+        return $this->belongsTo(Material::class);
     }
 
     public function attributes()
     {
-        return $this->hasMany(Attribute::class, 'product_id');
+        return $this->hasMany(Attribute::class);
     }
 
     public function photos()
     {
-        return $this->hasMany(Photo::class, 'product_id');
+        return $this->hasMany(Photo::class);
     }
 }

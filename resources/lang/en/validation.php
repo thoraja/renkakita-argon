@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Validation Language Lines
@@ -153,6 +152,8 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'role_id' => 'role'
+    ],
 
 ];

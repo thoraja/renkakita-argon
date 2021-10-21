@@ -8,4 +8,9 @@ class Order extends Model
 {
     protected $table = 'order';
     public $timestamps = false;
+
+    public function details()
+    {
+        return $this->hasMany(Detail::class);
+    }
 }

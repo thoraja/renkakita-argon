@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\Models\User;
+use App\Models\User\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProfileRequest extends FormRequest
+class UpdateProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,17 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'min:3'],
-            'email' => ['required', 'email', Rule::unique((new User)->getTable())->ignore(auth()->id())],
+            'name' => [
+                'required', 'min:3'
+            ],
+            'email' => [
+                'required', 'email', Rule::unique((new User)->getTable())->ignore(auth()->id())
+            ],
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->validateWithBag('profile');
     }
 }
