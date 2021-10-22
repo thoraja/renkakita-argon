@@ -23,22 +23,22 @@ Route::get('/', [HomeController::class, 'index']);
 
 Auth::routes(['register' => false, 'verify' => true]);
 
-Route::middleware(['auth', 'can:perform-administrative'])->group(function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
-
+Route::middleware('auth')->group(function () {
     Route::prefix('profile')->name('profile.')->group(function () {
         Route::get('', [ProfileController::class, 'show'])->name('show');
         Route::put('edit-profile', [ProfileController::class, 'editProfile'])->name('edit-profile');
         Route::put('edit-password', [ProfileController::class, 'editPassword'])->name('edit-password');
         Route::put('edit-distributor', [ProfileController::class, 'editDistributor'])->name('edit-distributor');
     });
+    Route::middleware('can:perform-administrative')->group(function () {
+        Route::view('dashboard', 'dashboard')->name('dashboard');
+        Route::get('distributor/{distributor}/verify', function (Distributor $distributor) {
+            $distributor->verify();
+            return redirect()->route('distributor.show', $distributor->user_id);
+        })->name('distributor.verify')->middleware('can:verify,App\Models\User\Distributor');
+        Route::resource('distributor', DistributorController::class);
 
-    Route::get('distributor/{distributor}/verify', function (Distributor $distributor) {
-        $distributor->verify();
-        return redirect()->route('distributor.show', $distributor->user_id);
-    })->name('distributor.verify')->middleware('can:verify,App\Models\User\Distributor');
-    Route::resource('distributor', DistributorController::class);
-
-    Route::resource('user', UserController::class);
+        Route::resource('user', UserController::class);
+    });
 });
 
