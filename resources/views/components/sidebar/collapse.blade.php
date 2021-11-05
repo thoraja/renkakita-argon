@@ -1,7 +1,7 @@
-<x-sidebar.link {{ $attributes }} route-name="{{ $routeName }}" href="#{{ $id }}" data-toggle="collapse" role="button" aria-expanded="{{ $isActive ? 'true' : 'false' }}" aria-controls="{{ $id }}">
+<x-sidebar.link {{ $attributes }} :active="$isActive()" uri="{{ $uri }}" href="#{{ $id }}" data-toggle="collapse" role="button" aria-expanded="{{ $isActive() ? 'true' : 'false' }}" aria-controls="{{ $id }}">
     {{ $trigger }}
 </x-sidebar.link>
 
-<div class="collapse" id="{{ $id }}">
+<div class="collapse{{ $isActive() ? ' show' : '' }}" id="{{ $id }}">
     {{ $content }}
 </div>

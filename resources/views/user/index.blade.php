@@ -21,20 +21,22 @@
                     <table class="table align-items-center table-flush">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col">{{ __('Name') }}</th>
-                                <th scope="col">{{ __('Role') }}</th>
-                                <th scope="col">{{ __('Email') }}</th>
-                                <th scope="col"></th>
+                                <th style="width: 1%">#</th>
+                                <th>{{ __('Name') }}</th>
+                                <th>{{ __('Role') }}</th>
+                                <th>{{ __('Email') }}</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($users as $user)
                             <tr>
+                                <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->role->display_name }}</td>
                                 <td>{{ $user->email }}</td>
-                                @can('update', $user)
                                 <td>
+                                @can('update', $user)
                                     <div class="dropdown float-right">
                                         <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v"></i>
@@ -43,8 +45,8 @@
                                             <a class="dropdown-item" href="{{ route('user.edit', $user->id) }}">{{ __('Edit') }}</a>
                                         </div>
                                     </div>
-                                </td>
                                 @endcan
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

@@ -15,7 +15,7 @@ class RoleCompanySeeder extends Seeder
     public function run()
     {
 
-        DB::table('role_company')->insert([
+        DB::table('company_role')->insert([
             ['role_id' => 1, 'company_id' => 1],
             ['role_id' => 1, 'company_id' => 2],
             ['role_id' => 2, 'company_id' => 1],

@@ -6,9 +6,9 @@ use App\Models\User\User;
 use App\Services\UserService;
 use App\Http\Controllers\Controller;
 use App\Services\DistributorService;
-use App\Http\Requests\UpdateProfileRequest;
-use App\Http\Requests\UpdatePasswordRequest;
-use App\Http\Requests\UpdateDistributorRequest;
+use App\Http\Requests\User\UpdateProfileRequest;
+use App\Http\Requests\User\UpdatePasswordRequest;
+use App\Http\Requests\User\UpdateDistributorRequest;
 
 class ProfileController extends Controller
 {
@@ -38,7 +38,7 @@ class ProfileController extends Controller
 
     public function editDistributor(UpdateDistributorRequest $request, DistributorService $distributorService)
     {
-        $distributorService->handleUpdateDistributor($request);
+        $distributorService->handleUpdateDistributor($request->validated());
 
         return redirect()->route('profile.show')->with('status.distributor', __('Distributor information successfully updated.'));
     }

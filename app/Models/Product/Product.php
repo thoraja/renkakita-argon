@@ -11,6 +11,19 @@ class Product extends Model
     use HasFactory;
     protected $table = 'product';
 
+    protected $fillable = [
+        'name',
+        'company_id',
+        'material_id',
+        'category_id',
+        'price',
+        'description',
+    ];
+
+    protected $attributes = [
+        'quantity_in_stock' => 0
+    ];
+
     public function company()
     {
         return $this->belongsTo(Company::class);
@@ -34,5 +47,10 @@ class Product extends Model
     public function photos()
     {
         return $this->hasMany(Photo::class);
+    }
+
+    public function flows()
+    {
+        return $this->hasMany(Flow::class);
     }
 }

@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-6 collapse-brand">
                         <a href="{{ route('dashboard') }}">
-                            <img src="{{ asset('argon') }}/img/brand/blue.png">
+                            <x-application-logo/>
                         </a>
                     </div>
                     <div class="col-6 collapse-close">
@@ -27,8 +27,8 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link nav-link-icon" href="{{ route('login') }}">
-                        <i class="ni ni-key-25"></i>
-                        <span class="nav-link-inner--text">{{ __('Login') }}</span>
+                        <x-icon class="align-middle" style="font-size: 18px">login</x-icon>
+                        <span class="nav-link-inner--text align-middle">{{ __('Login') }}</span>
                     </a>
                 </li>
             </ul>

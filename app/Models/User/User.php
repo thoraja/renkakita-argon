@@ -2,6 +2,8 @@
 
 namespace App\Models\User;
 
+use App\Models\Order\Cart;
+use App\Models\Order\Order;
 use Str;
 use Hash;
 use Laravel\Sanctum\HasApiTokens;
@@ -60,5 +62,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function distributor()
     {
         return $this->hasOne(Distributor::class);
+    }
+
+    public function cart()
+    {
+        return $this->hasOne(Cart::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }

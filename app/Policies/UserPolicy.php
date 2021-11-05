@@ -18,7 +18,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return in_array($user->role->id, Role::ADMINS);
+        return in_array($user->role->id, [Role::SUPER_ADMIN, Role::GENERAL_ADMIN]);
     }
 
     /**
@@ -53,7 +53,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return $user->role->id == Role::SUPER_ADMIN;
+        return $user->id == $model->id || $user->role->id == Role::SUPER_ADMIN;
     }
 
     /**

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\User;
 
-use App\Models\User\Role;
 use App\Models\User\User;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreDistributorRequest extends FormRequest
+class UpdateProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,7 +16,7 @@ class StoreDistributorRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->check();
+        return Auth::check();
     }
 
     /**
@@ -27,22 +27,17 @@ class StoreDistributorRequest extends FormRequest
     public function rules()
     {
         return [
+            'name' => [
+                'required', 'min:3'
+            ],
             'email' => [
-                'required', 'email', 'unique:App\Models\User\User'
-            ],
-            'role_id' => [
-                'required', Rule::in(Role::DISTRIBUTORS)
-            ],
-            'area' => [
-                'required'
+                'required', 'email', Rule::unique((new User)->getTable())->ignore(auth()->id())
             ],
         ];
     }
 
     public function withValidator($validator)
     {
-        $validator->validateWithBag('distributor');
+        $validator->validateWithBag('profile');
     }
 }
-
-

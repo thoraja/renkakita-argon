@@ -5,6 +5,7 @@ namespace App\Services;
 use Str;
 use App\Models\User\Role;
 use App\Models\User\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Notifications\VerifyEmailWithCredentials;
 
@@ -23,7 +24,7 @@ class UserService {
         } else {
             $user->sendEmailVerificationNotification();
         }
-
+        $user->cart()->create();
         return $user;
     }
 
@@ -48,4 +49,15 @@ class UserService {
         $user->update(['password' => Hash::make($data['password'])]);
     }
 
+    public function getUserWithSameCompanies()
+    {
+        $roles_id = Auth::user()->role->companies()->with('roles')->get()
+            ->pluck('roles')
+            ->flatten()
+            ->pluck('id')
+            ->unique();
+        $user = User::whereIn('role_id', $roles_id)->get();
+
+        return $user;
+    }
 }

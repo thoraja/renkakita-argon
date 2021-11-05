@@ -52,27 +52,26 @@
                 </div>
             </div>
             @can('perform-administrative')
-
             <h6 class="navbar-heading text-muted">Administrative</h6>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <x-sidebar.link route-name="dashboard" href="{{ route('dashboard') }}">
-                        <i class="fa fa-tachometer-alt"></i>
+                    <x-sidebar.link uri="dashboard">
+                        <x-icon class="mr-2">dashboard</x-icon>
                         {{ __('Dashboard') }}
                     </x-sidebar.link>
                 </li>
                 @can('viewAny', App\Models\User\User::class)
                 <li class="nav-item">
-                    <x-sidebar.link route-name="user.*" href="{{ route('user.index') }}">
-                        <i class="fa fa-users"></i>
+                    <x-sidebar.link uri="user">
+                        <x-icon class="mr-2">people</x-icon>
                         {{ __('Users') }}
                     </x-sidebar.link>
                 </li>
                 @endcan
                 @can('viewAny', App\Models\User\Distributor::class)
                 <li class="nav-item">
-                    <x-sidebar.link route-name="distributor.*" href="{{ route('distributor.index') }}">
-                        <i class="fas fa-project-diagram"></i>
+                    <x-sidebar.link uri="distributor">
+                        <x-icon class="mr-2">share</x-icon>
                         {{ __('Distributors') }}
                     </x-sidebar.link>
                 </li>
@@ -82,27 +81,69 @@
             <hr class="my-3">
             @endcan
             <!-- Heading -->
+            @can('viewAny', App\Models\Product\Product::class)
             <h6 class="navbar-heading text-muted">Products</h6>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <x-sidebar.link route-name="product.*">
-                        <i class="fas fa-tshirt"></i>
-                        {{ __('Products') }}
+                    <x-sidebar.collapse id="product-collapse" uri="product/product*" :active="request()->is('product/category/*')">
+                        <x-slot name="trigger">
+                            <x-icon class="mr-2">checkroom</x-icon>
+                            {{ __('Product') }}
+                        </x-slot>
+                        <x-slot name="content">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <x-sidebar.link uri="product/product">
+                                        <x-icon class="mr-2">label</x-icon>
+                                        {{ __('All Products') }}
+                                    </x-sidebar.link>
+                                </li>
+                                @foreach (App\Models\Product\Category::all() as $category)
+                                <li class="nav-item">
+                                    <x-sidebar.link :uri="'product/category/'.$category->id">
+                                        <x-icon class="mr-2">label</x-icon>
+                                        {{ $category->name }}
+                                    </x-sidebar.link>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </x-slot>
+                    </x-sidebar.collapse>
+                </li>
+            @endcan
+                @can('viewAny', App\Models\Product\Category::class)
+                <li class="nav-item">
+                    <x-sidebar.link uri="product/category">
+                        <x-icon class="mr-2">category</x-icon>
+                        {{ __('Categories') }}
+                    </x-sidebar.link>
+                </li>
+                @endcan
+                @can('viewAny', App\Models\Product\Material::class)
+                <li class="nav-item">
+                    <x-sidebar.link uri="product/material">
+                        <x-icon class="mr-2">note</x-icon>
+                        {{ __('Materials') }}
+                    </x-sidebar.link>
+                </li>
+                @endcan
+            </ul>
+            <!-- Divider -->
+            <hr class="my-3">
+            <!-- Heading -->
+            <h6 class="navbar-heading text-muted">Transaction</h6>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <x-sidebar.link uri="order/cart">
+                        <x-icon class="mr-2">shopping_cart</x-icon>
+                        {{ __('Cart') }}
                     </x-sidebar.link>
                 </li>
                 <li class="nav-item">
-                    <x-sidebar.collapse id="user-collapse" route-name="user.*">
-                        <x-slot name="trigger">
-                            <i class="fa fa-users"></i>
-                            {{ __('Orders') }}
-                        </x-slot>
-                        <x-slot name="content">
-                            <x-sidebar.link route-name="user.*" href="{{ route('user.index') }}">
-                                <i class="fa fa-tachometer-alt"></i>
-                                {{ __('Dashboard') }}
-                            </x-sidebar.link>
-                        </x-slot>
-                    </x-sidebar.collapse>
+                    <x-sidebar.link uri="order/order">
+                        <x-icon class="mr-2">receipt_long</x-icon>
+                        {{ __('Orders') }}
+                    </x-sidebar.link>
                 </li>
             </ul>
         </div>

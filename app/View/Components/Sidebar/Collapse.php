@@ -6,17 +6,19 @@ use Illuminate\View\Component;
 
 class Collapse extends Component
 {
-    public $routeName;
     public $id;
+    public $uri;
+    public $active;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($routeName, $id)
+    public function __construct($id, $uri = "", $active = null)
     {
-        $this->routeName = $routeName;
         $this->id = $id;
+        $this->uri = $uri;
+        $this->active = $active;
     }
 
     /**
@@ -31,6 +33,6 @@ class Collapse extends Component
 
     public function isActive()
     {
-        return request()->routeIs($this->routeName);
+        return request()->is($this->uri) || $this->active;
     }
 }

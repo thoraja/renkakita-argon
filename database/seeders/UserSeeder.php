@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
+        $user = User::create([
             'name' => "Super Admin",
             'email' => "superadmin@dummy.com",
             'email_verified_at' => now(),
@@ -23,5 +23,6 @@ class UserSeeder extends Seeder
             'remember_token' => Str::random(10),
             'role_id' => 1,
         ]);
+        $user->cart()->create();
     }
 }

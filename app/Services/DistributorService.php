@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Http\Requests\UpdateDistributorRequest;
 use App\Models\User\Distributor;
+use Illuminate\Support\Facades\Auth;
 
 class DistributorService {
 
@@ -13,16 +13,13 @@ class DistributorService {
         return $distributor;
     }
 
-    public function handleUpdateDistributor(UpdateDistributorRequest $request)
+    public function handleUpdateDistributor($data)
     {
-        $data['id_card_number'] = $request->id_card_number;
-        $data['phone_number'] = $request->phone_number;
-        $data['address'] = $request->address;
-        if ($request->id_card_photo) {
-            $data['id_card_photo_uri'] = $request->id_card_photo->store('images');
+        if ($data['id_card_photo']) {
+            $data['id_card_photo_uri'] = $data['id_card_photo']->store('images/user/'.Auth::id());
+            unset($data['id_card_photo']);
         }
 
-        return $request->user()->distributor()->update($data);
+        return Auth::user()->distributor()->update($data);
     }
 }
-?>

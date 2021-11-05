@@ -6,15 +6,17 @@ use Illuminate\View\Component;
 
 class Link extends Component
 {
-    public $routeName;
+    public $uri;
+    public $active;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($routeName)
+    public function __construct($uri = "", $active = null)
     {
-        $this->routeName = $routeName;
+        $this->uri = $uri;
+        $this->active = $active;
     }
 
     /**
@@ -29,6 +31,6 @@ class Link extends Component
 
     public function isActive()
     {
-        return request()->routeIs($this->routeName);
+        return request()->is($this->uri) || $this->active;
     }
 }

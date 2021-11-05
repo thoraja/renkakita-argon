@@ -19,8 +19,9 @@ class CreateProductTable extends Migration
             $table->unsignedTinyInteger('company_id');
             $table->unsignedSmallInteger('material_id');
             $table->unsignedTinyInteger('category_id');
-            $table->smallInteger('stock');
+            $table->smallInteger('quantity_in_stock');
             $table->integer('price');
+            $table->string('description');
             $table->timestamps();
 
             $table->foreign('material_id')->references('id')->on('product_material');

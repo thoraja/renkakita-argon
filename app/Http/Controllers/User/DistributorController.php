@@ -6,7 +6,7 @@ use App\Models\User\Role;
 use Illuminate\Http\Request;
 use App\Models\User\Distributor;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreDistributorRequest;
+use App\Http\Requests\User\StoreDistributorRequest;
 use App\Services\DistributorService;
 use App\Services\UserService;
 

@@ -17,8 +17,13 @@
         <!-- Icons -->
         <link href="{{ asset('argon') }}/vendor/nucleo/css/nucleo.css" rel="stylesheet">
         <link href="{{ asset('argon') }}/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
         <!-- Argon CSS -->
         <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
+
+        <!-- Additional CSS -->
+        @yield('styles')
     </head>
     <body class="{{ $class ?? '' }}">
         @auth()
@@ -40,13 +45,16 @@
         @endguest
 
         @yield('modals')
+        @include('sweetalert::alert')
 
         <script src="{{ asset('argon') }}/vendor/jquery/dist/jquery.min.js"></script>
         <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-        @stack('js')
-
         <!-- Argon JS -->
         <script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"></script>
+
+        <!-- Additional JS -->
+        <script src="{{ asset('js/app.js') }}"></script>
+        @yield('scripts')
     </body>
 </html>
