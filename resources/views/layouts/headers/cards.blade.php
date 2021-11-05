@@ -1,4 +1,4 @@
-<div class="header bg-gradient-info pb-7 pt-3 pt-md-6">
+<div class="header bg-gradient-primary pb-7 pt-3 pt-md-6">
     <div class="container">
         <div class="header-body">
             @auth
