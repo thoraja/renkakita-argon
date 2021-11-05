@@ -37,7 +37,14 @@
             @include('layouts.navbars.navbar', ['title' => $title])
             @include('layouts.headers.cards')
 
-            @yield('content')
+            <div style="min-height: 72vh">
+                @yield('content')
+            </div>
+            @auth
+            <div class="container-fluid">
+                @include('layouts.footers.auth')
+            </div>
+            @endauth
         </div>
 
         @guest

@@ -18,7 +18,7 @@ class HomeController extends Controller
         } else if (in_array(auth()->user()->role->id, Role::ADMINS)) {
             return redirect()->route('dashboard');
         } else if (in_array(auth()->user()->role->id, Role::DISTRIBUTORS)) {
-            return view('admin.dashboard');
+            return redirect()->route('product.product.index');
         } else {
             abort(404);
         }

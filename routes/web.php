@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use App\Models\Product\Product;
 use App\Models\User\Distributor;
 use Illuminate\Support\Facades\Route;
@@ -77,7 +78,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('can:perform-administrative')->group(function () {
 
         // Routing for dashboard
-        Route::view('dashboard', 'admin.dashboard')->name('dashboard');
+        Route::get('dashboard', [DashboardController::class, 'show'])->name('dashboard');
 
         // Routing for verify distributor with policy
         Route::get('distributor/{distributor}/verify', function (Distributor $distributor) {
